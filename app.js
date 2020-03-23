@@ -18,7 +18,7 @@ require('dotenv').config();
 app.use(cookieParser());
 
 app.all('*', (req, res, next) => {
-    const allowedOrigins = ['http://localhost:3000'];
+    const allowedOrigins = ['http://localhost:3000', 'http://quiz-api.eu-west-1.elasticbeanstalk.com'];
     const origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
       res.setHeader('Access-Control-Allow-Origin', origin);
@@ -79,9 +79,11 @@ app.use(helmet.noSniff());
 
 const auth = require('./routes/auth');
 const question = require('./routes/question');
+const test = require('./routes/test');
   
 app.use('/api/auth', auth);
 app.use('/api/question', question);
+app.use('/api/test', test);
 
 
 app.use((req, res, next) => {
