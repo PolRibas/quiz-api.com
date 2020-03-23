@@ -21,7 +21,7 @@ app.all('*', (req, res, next) => {
     const allowedOrigins = ['http://localhost:3000'];
     const origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
-        res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Origin', origin);
     }
     //res.setHeader('Access-Control-Allow-Origin', "https://www.nexow-platform.com");
     // res.header("Set-Cookie", "HttpOnly;Secure; SameSite=None");
@@ -32,7 +32,7 @@ app.all('*', (req, res, next) => {
     next();
 });
 
-const uri = 'mongodb+srv://Pol:rcde1900B@cluster0-vntfb.mongodb.net/test?retryWrites=true&w=majority';
+const uri = process.env.URI;
 
 mongoose.connect(uri, {
   keepAlive: true,
@@ -52,7 +52,7 @@ app.use(session({
     mongooseConnection: mongoose.connection,
     ttl: 24 * 60 * 60 // 1 day
   }),
-  secret: 'adfjskahbdjkfjkdsb',
+  secret: process.env.SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: {
